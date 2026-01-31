@@ -4,14 +4,20 @@ using UnityEngine.UI;
 
 public class MaterialsCollector : MonoBehaviour
 {
+    public static MaterialsCollector Instance;
+
     int currentIndex = 0;
     public GameObject parent_material_GO, material_GO;
     [Range(3,10)]
     public int max_materials = 5;
 
-    private Image[] materials_sprite;
+    public Image[] materials_sprite;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         materials_sprite = new Image[max_materials];
@@ -23,18 +29,24 @@ public class MaterialsCollector : MonoBehaviour
             new_material.transform.localPosition = new Vector3(i * 1.5f, 0, 0);
 
             materials_sprite[i] = new_material.GetComponent<Image>();
+            materials_sprite[i].sprite = null;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void SendSprite(Image material_icon)
+    public void SendSprite(Material material)
     {
-        Debug.Log($"Nama Sprite: {material_icon.sprite.name}, Objek: {material_icon.gameObject.name}");
-        materials_sprite[currentIndex].sprite = material_icon.sprite;
+        if (Instance.currentIndex < Instance.max_materials)
+        {
+            Debug.Log($"Nama Sprite: {material.icon}, Objek: {material.gameObject.name}");
+            Instance.materials_sprite[currentIndex].sprite = material.material_image.sprite;
+            Instance.materials_sprite[currentIndex].color = material.color_influenced;
+
+            Instance.currentIndex++;
+        }
     }
 }

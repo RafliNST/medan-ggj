@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Material : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Sprite icon;
+    public Color color_influenced;
 
-    // Update is called once per frame
-    void Update()
+    public Image material_image { get; private set; }
+    
+
+    private void Start()
     {
-        
+        material_image = GetComponent<Image>();
+
+        material_image.sprite = icon;
+        material_image.color = Color.white;
     }
 }

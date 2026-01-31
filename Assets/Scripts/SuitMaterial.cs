@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Material : MonoBehaviour
+public class SuitMaterial : MonoBehaviour
 {
     public Sprite icon;
     public Color color_influenced;
@@ -15,5 +15,12 @@ public class Material : MonoBehaviour
 
         material_image.sprite = icon;
         material_image.color = Color.white;
+
+        gameObject.GetComponent<Button>().onClick.AddListener(GotSelected);
+    }
+
+    private void GotSelected()
+    {
+        MaterialsCollector.Instance.onMaterialSelected?.Invoke(this);
     }
 }

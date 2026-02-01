@@ -14,6 +14,8 @@ public class ChangePlayerColorOnLoad : MonoBehaviour
     private void Awake()
     {
         onSceneChanged = new UnityEvent();
+
+        Instance = this;
     }
 
     void Start()

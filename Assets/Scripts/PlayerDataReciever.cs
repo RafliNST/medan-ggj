@@ -77,7 +77,6 @@ public class PlayerDataReciever : MonoBehaviour
         else
         {
             Debug.Log("berhasil");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

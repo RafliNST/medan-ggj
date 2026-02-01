@@ -17,7 +17,6 @@ public class SuitMaterial : MonoBehaviour
         material_image = GetComponent<Image>();
 
         material_image.sprite = icon;
-        material_image.color = Color.white;
 
         gameObject.GetComponent<Button>().onClick.AddListener(GotSelected);
     }

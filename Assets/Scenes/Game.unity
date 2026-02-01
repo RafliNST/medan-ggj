@@ -8388,7 +8388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8204078de25bd2047b5b3b851676dab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRenderer: {fileID: 0}
+  playerRenderer: {fileID: 3028121453594117932}
   onSceneChanged:
     m_PersistentCalls:
       m_Calls: []

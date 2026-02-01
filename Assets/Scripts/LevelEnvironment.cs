@@ -8,7 +8,6 @@ public class LevelEnvironment : MonoBehaviour
     public static LevelEnvironment Instance;
 
     public MaterialValue materialRequired;
-    public float timeForResult;
 
     public List<SuitMaterial> selectedMaterials { get; private set; }
 
@@ -40,7 +39,6 @@ public class LevelEnvironment : MonoBehaviour
         float N = CalculateValues();
 
         onGameStarted?.Invoke(true);
-        StartCoroutine(WaitForResult(timeForResult, N));
     }
 
     public float CalculateValues()
@@ -55,20 +53,6 @@ public class LevelEnvironment : MonoBehaviour
         float N = val / normalizeConstant;
         N = Mathf.Abs(N);
         return N;
-    }
-
-    IEnumerator WaitForResult(float time, float N)
-    {
-        yield return new WaitForSeconds(time);        
-
-        if (N > 0f && N <= 1f)
-        {
-            Debug.Log("Level Completed!");
-        }
-        else
-        {
-            Debug.Log("Level Failed!");
-        }
     }
 
     void StoreMaterial(SuitMaterial material)

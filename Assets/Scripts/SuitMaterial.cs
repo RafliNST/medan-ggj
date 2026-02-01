@@ -43,6 +43,11 @@ public class MaterialValue
         return $"heat:{heat}, air:{air}, sound:{sound}, sound:{sound}, scent:{scent}";
     }
 
+    public int Sum()
+    {
+        return (int)(heat + air + sound + light + scent);
+    }
+
     public MaterialValue Add(MaterialValue other)
     {
         return new MaterialValue

@@ -36,15 +36,15 @@ public class LevelEnvironment : MonoBehaviour
 
     public float CalculateValues()
     {
-        MaterialValue val = new MaterialValue();
+        float val = materialRequired.Sum();
 
         for (int i = 0; i < selectedMaterials.Count; i++)
         {
-            val = val.Add(selectedMaterials[i].material_value);
-            Debug.Log($"Current: {val.GetValues()}");
+            val += selectedMaterials[i].material_value.Sum();
+            Debug.Log($"Current: {val}");
         }
 
-        float N = val.Normalize(normalizeConstant);
+        float N = val / normalizeConstant;
         N = Mathf.Abs(N);
         return N;
     }
@@ -72,6 +72,7 @@ public class LevelEnvironment : MonoBehaviour
 
     void RemoveMaterial(int idx)
     {
-        selectedMaterials.RemoveAt(idx);
+        if (selectedMaterials.Count > 0 && idx < MaterialsCollector.Instance.currentIndex)
+            selectedMaterials.RemoveAt(idx);
     }
 }

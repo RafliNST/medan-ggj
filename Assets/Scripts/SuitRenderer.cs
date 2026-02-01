@@ -40,7 +40,8 @@ public class SuitRenderer : MonoBehaviour
 
     public void ReduceColorScheme(int a)
     {
-        if (MaterialsCollector.Instance.currentIndex < 0) return;
+        if (MaterialsCollector.Instance.currentIndex <= 0 ||
+            a >= MaterialsCollector.Instance.currentIndex) return;
 
         Color blend = Color.black;
         for (int i = 0; i < color_blender.Count; i++)

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Events;
 
 public class LevelEnvironment : MonoBehaviour
 {
@@ -11,12 +12,16 @@ public class LevelEnvironment : MonoBehaviour
 
     public List<SuitMaterial> selectedMaterials { get; private set; }
 
+    [HideInInspector]
+    public UnityEvent<bool> onGameStarted;
+
     public int normalizeConstant = 10;
 
     private void Awake()
     {
         Instance = this;
         selectedMaterials = new List<SuitMaterial>();
+        onGameStarted = new UnityEvent<bool>();
     }
 
     private void Start()
@@ -28,23 +33,26 @@ public class LevelEnvironment : MonoBehaviour
     public void StartLevel()
     {
         if (selectedMaterials.Count < MaterialsCollector.Instance.max_materials)
+        {
+            onGameStarted?.Invoke(false);
             return;
+        }
         float N = CalculateValues();
 
+        onGameStarted?.Invoke(true);
         StartCoroutine(WaitForResult(timeForResult, N));
     }
 
     public float CalculateValues()
     {
-        MaterialValue val = new MaterialValue();
+        float val = materialRequired.Sum();
 
         for (int i = 0; i < selectedMaterials.Count; i++)
         {
-            val = val.Add(selectedMaterials[i].material_value);
-            Debug.Log($"Current: {val.GetValues()}");
+            val += selectedMaterials[i].material_value.Sum();
         }
 
-        float N = val.Normalize(normalizeConstant);
+        float N = val / normalizeConstant;
         N = Mathf.Abs(N);
         return N;
     }
@@ -61,8 +69,6 @@ public class LevelEnvironment : MonoBehaviour
         {
             Debug.Log("Level Failed!");
         }
-
-        Debug.Log($"N val: {N}");
     }
 
     void StoreMaterial(SuitMaterial material)
@@ -72,6 +78,7 @@ public class LevelEnvironment : MonoBehaviour
 
     void RemoveMaterial(int idx)
     {
-        selectedMaterials.RemoveAt(idx);
+        if (selectedMaterials.Count > 0 && idx < MaterialsCollector.Instance.currentIndex)
+            selectedMaterials.RemoveAt(idx);
     }
 }

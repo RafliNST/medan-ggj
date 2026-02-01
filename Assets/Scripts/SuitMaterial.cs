@@ -38,9 +38,9 @@ public class MaterialValue
         light,
         scent;
 
-    public string GetValues()
+    public int Sum()
     {
-        return $"heat:{heat}, air:{air}, sound:{sound}, sound:{sound}, scent:{scent}";
+        return (int)(heat + air + sound + light + scent);
     }
 
     public MaterialValue Add(MaterialValue other)

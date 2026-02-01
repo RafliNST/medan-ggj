@@ -9,6 +9,8 @@ public class LevelEnvironment : MonoBehaviour
 
     public MaterialValue materialRequired;
 
+    bool menuIsShowrd = false;
+
     public List<SuitMaterial> selectedMaterials { get; private set; }
 
     [HideInInspector]

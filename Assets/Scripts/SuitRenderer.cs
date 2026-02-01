@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class SuitRenderer : MonoBehaviour
 {
-    public static SuitRenderer instance;
+    public static SuitRenderer Instance;
 
     public SpriteRenderer spriteRenderer;
+
+    [HideInInspector]
+    public Color finalColor = Color.white;
 
     List<Color> color_blender = new List<Color>();
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
 
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -35,6 +38,8 @@ public class SuitRenderer : MonoBehaviour
 
         spriteRenderer.color = blend;
 
+        finalColor = blend;
+
         color_blender.Add(a.color_influenced);
     }
 
@@ -52,6 +57,8 @@ public class SuitRenderer : MonoBehaviour
         blend /= color_blender.Count;
 
         blend.a = 1f;
+
+        finalColor = blend;
 
         color_blender.RemoveAt(a);
 

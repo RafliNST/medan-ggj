@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     public string gameplaySceneName;
 
+    public Color playerColor;
+
     private CinemachineCamera virtualCamera;
 
     private void Awake()
@@ -33,8 +35,11 @@ public class Player : MonoBehaviour
             normalization_val = LevelEnvironment.Instance.CalculateValues();
             Debug.Log($"Game Started: {started}, Value: {normalization_val}");
             
-            StartCoroutine(WaitForResult(timeForResult, normalization_val));
+            if (started)
+                StartCoroutine(WaitForResult(timeForResult, normalization_val));
         });
+
+        playerColor = SuitRenderer.Instance.finalColor;
     }
 
     IEnumerator WaitForResult(float time, float N)

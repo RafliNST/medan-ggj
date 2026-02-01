@@ -9,6 +9,8 @@ public class PlayerDataReciever : MonoBehaviour
 
     public static PlayerDataReciever Instance;
 
+    public Color playerColor;
+
     public List<ObstacleType> obstacles = new List<ObstacleType>();
 
     private void Awake()
@@ -29,6 +31,7 @@ public class PlayerDataReciever : MonoBehaviour
             current_error_margin = Player.Instance.current_error_margin;
         }
 
+        playerColor = SuitRenderer.Instance.finalColor;
         GenerateRandomObstacles();
     }
 
@@ -57,7 +60,7 @@ public class PlayerDataReciever : MonoBehaviour
         }
     }
 
-    IEnumerator WaitForResult(float time)
+    public IEnumerator WaitForResult(float time)
     {
         yield return new WaitForSeconds(time);
 

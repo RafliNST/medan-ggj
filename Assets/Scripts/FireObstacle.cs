@@ -13,21 +13,31 @@ public class FireObstacle : MonoBehaviour
 
     private void Start()
     {
-        switch (PlayerDataReciever.Instance.obstacles[0])
+        int select = Random.Range(0, (new ObstacleType[]
         {
-            case ObstacleType.HEAT:
+        ObstacleType.HEAT,
+        ObstacleType.AIR,
+        ObstacleType.SOUND,
+        ObstacleType.LIGHT,
+        ObstacleType.SCENT
+        }).Length);
+
+        if (PlayerDataReciever.Instance.obstacles.Count == 0) return;
+        switch (select)
+        {
+            case 0:
                 obstactleRenderer.sprite = heatOBS;
                 break;
-            case ObstacleType.AIR:
+            case 1:
                 obstactleRenderer.sprite = airOBS;
                 break;
-            case ObstacleType.LIGHT:
+            case 2:
                 obstactleRenderer.sprite = lightOBS;
                 break;
-            case ObstacleType.SOUND:
+            case 3:
                 obstactleRenderer.sprite= soundOBS;
                 break;
-            case ObstacleType.SCENT:
+            case 4:
                 obstactleRenderer.sprite = scentOBS;
                 break;
         }

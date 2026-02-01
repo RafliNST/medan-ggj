@@ -4,41 +4,56 @@ using System.Collections;
 
 public class LevelEnvironment : MonoBehaviour
 {
+    public static LevelEnvironment Instance;
+
     public MaterialValue materialRequired;
     public float timeForResult;
 
-    List<SuitMaterial> selectedMaterials;
+    public List<SuitMaterial> selectedMaterials { get; private set; }
 
     public int normalizeConstant = 10;
 
     private void Awake()
     {
+        Instance = this;
         selectedMaterials = new List<SuitMaterial>();
     }
 
     private void Start()
     {
         MaterialsCollector.Instance.onMaterialSelected.AddListener(StoreMaterial);
+        MaterialsCollector.Instance.onMaterialRemoved.AddListener(RemoveMaterial);
     }
 
     public void StartLevel()
     {
-        for (int i = 0; i < selectedMaterials.Count; i++)
-        {
-            materialRequired = materialRequired.Add(selectedMaterials[i].material_value);
-        }
+        if (selectedMaterials.Count < MaterialsCollector.Instance.max_materials)
+            return;
+        float N = CalculateValues();
 
-        StartCoroutine(WaitForResult(timeForResult));
+        StartCoroutine(WaitForResult(timeForResult, N));
     }
 
-    IEnumerator WaitForResult(float time)
+    public float CalculateValues()
     {
-        yield return new WaitForSeconds(time);
+        MaterialValue val = new MaterialValue();
 
-        float N = materialRequired.Normalize(normalizeConstant);
+        for (int i = 0; i < selectedMaterials.Count; i++)
+        {
+            val = val.Add(selectedMaterials[i].material_value);
+            Debug.Log($"Current: {val.GetValues()}");
+        }
+
+        float N = val.Normalize(normalizeConstant);
         N = Mathf.Abs(N);
+        return N;
+    }
 
-        if (N > 0f && N < 1f)
+    IEnumerator WaitForResult(float time, float N)
+    {
+        yield return new WaitForSeconds(time);        
+
+        if (N > 0f && N <= 1f)
         {
             Debug.Log("Level Completed!");
         }
@@ -53,5 +68,10 @@ public class LevelEnvironment : MonoBehaviour
     void StoreMaterial(SuitMaterial material)
     {
         selectedMaterials.Add(material);
+    }
+
+    void RemoveMaterial(int idx)
+    {
+        selectedMaterials.RemoveAt(idx);
     }
 }

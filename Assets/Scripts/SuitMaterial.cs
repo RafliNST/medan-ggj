@@ -38,6 +38,11 @@ public class MaterialValue
         light,
         scent;
 
+    public string GetValues()
+    {
+        return $"heat:{heat}, air:{air}, sound:{sound}, sound:{sound}, scent:{scent}";
+    }
+
     public MaterialValue Add(MaterialValue other)
     {
         return new MaterialValue

@@ -17,6 +17,5 @@ public class SelectedMaterial : MonoBehaviour
     public void SendIndex()
     {
         MaterialsCollector.Instance.onMaterialRemoved.Invoke(ownIndex);
-        Debug.Log("success invoking");
     }
 }

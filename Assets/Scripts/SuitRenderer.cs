@@ -36,7 +36,6 @@ public class SuitRenderer : MonoBehaviour
         spriteRenderer.color = blend;
 
         color_blender.Add(a.color_influenced);
-        Debug.Log($"Color Inc: {a.color_influenced}");
     }
 
     public void ReduceColorScheme(int a)
@@ -53,20 +52,8 @@ public class SuitRenderer : MonoBehaviour
 
         blend.a = 1f;
 
-        Debug.Log($"Color Dec: {blend}");
-
         color_blender.RemoveAt(a);
 
         spriteRenderer.color = blend;
-    }
-
-    public void RedrawSuit()
-    {
-        Color blendedColor = Color.black;
-
-        foreach(var mat in MaterialsCollector.Instance.materials_sprite)
-        {
-
-        }
     }
 }

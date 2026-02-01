@@ -38,11 +38,6 @@ public class MaterialValue
         light,
         scent;
 
-    public string GetValues()
-    {
-        return $"heat:{heat}, air:{air}, sound:{sound}, sound:{sound}, scent:{scent}";
-    }
-
     public int Sum()
     {
         return (int)(heat + air + sound + light + scent);

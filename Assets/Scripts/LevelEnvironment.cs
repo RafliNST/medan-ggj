@@ -41,7 +41,6 @@ public class LevelEnvironment : MonoBehaviour
         for (int i = 0; i < selectedMaterials.Count; i++)
         {
             val += selectedMaterials[i].material_value.Sum();
-            Debug.Log($"Current: {val}");
         }
 
         float N = val / normalizeConstant;
@@ -61,8 +60,6 @@ public class LevelEnvironment : MonoBehaviour
         {
             Debug.Log("Level Failed!");
         }
-
-        Debug.Log($"N val: {N}");
     }
 
     void StoreMaterial(SuitMaterial material)

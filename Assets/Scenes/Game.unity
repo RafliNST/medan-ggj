@@ -314,7 +314,7 @@ MonoBehaviour:
   soundOBS: {fileID: 0}
   lightOBS: {fileID: 0}
   scentOBS: {fileID: 0}
-  obstactleRenderer: {fileID: 0}
+  obstactleRenderer: {fileID: 1477219340}
 --- !u!1 &1344633711
 GameObject:
   m_ObjectHideFlags: 0

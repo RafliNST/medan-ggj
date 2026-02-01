@@ -9,7 +9,7 @@ public class PlayerDataReciever : MonoBehaviour
 
     public static PlayerDataReciever Instance;
 
-    public List<ObstacleType> obstacles;
+    public List<ObstacleType> obstacles = new List<ObstacleType>();
 
     private void Awake()
     {

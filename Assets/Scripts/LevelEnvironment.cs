@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Events;
 
 public class LevelEnvironment : MonoBehaviour
 {
@@ -11,12 +12,16 @@ public class LevelEnvironment : MonoBehaviour
 
     public List<SuitMaterial> selectedMaterials { get; private set; }
 
+    [HideInInspector]
+    public UnityEvent<bool> onGameStarted;
+
     public int normalizeConstant = 10;
 
     private void Awake()
     {
         Instance = this;
         selectedMaterials = new List<SuitMaterial>();
+        onGameStarted = new UnityEvent<bool>();
     }
 
     private void Start()
@@ -28,9 +33,13 @@ public class LevelEnvironment : MonoBehaviour
     public void StartLevel()
     {
         if (selectedMaterials.Count < MaterialsCollector.Instance.max_materials)
+        {
+            onGameStarted?.Invoke(false);
             return;
+        }
         float N = CalculateValues();
 
+        onGameStarted?.Invoke(true);
         StartCoroutine(WaitForResult(timeForResult, N));
     }
 
